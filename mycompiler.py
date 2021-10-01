@@ -1,16 +1,6 @@
-#/Users/drleahv/Documents/Joshua/VIS_NOV/translations/s61Aa000920201ja14.0_h18A19.txt
 import os
 import shutil
-
-# Explore directory 
-
-trans_dir = 'translations'
-path = '/Users/drleahv/Documents/Joshua/VIS_NOV/'
-
-# Initialize the translations directory
-dir = os.path.join(path,trans_dir, trans_dir)
-    if not os.path.exists(dir):
-        os.mkdir(dir)
+from variables import *
 
 # Make function to rewrite txt without blank space at the bottom
 def rewrite(src, dest): # Returns: None
@@ -20,6 +10,7 @@ def rewrite(src, dest): # Returns: None
     with open(dest, 'w') as f2:
         f2.writelines(lines)
 
+# Exit/cancel the program once all files have been compiled
 while True:
     for (root,dirs,fil) in os.walk(trans_dir, topdown=True):
         fil_list = fil
@@ -56,6 +47,7 @@ while True:
                                 rewrite(path+trans_dir+'/'+item,path+trans_dir+'/temp/eng')
                             except FileNotFoundError:
                                 continue
+                        # Rename the japanese translation to jap and put it into the folder with its partner
                         elif 'ja' in item:
                             if title_found:
                                 try:
@@ -67,4 +59,7 @@ while True:
                                     rewrite(path+trans_dir+'/'+item,path+trans_dir+'/temp/jap')
                                 except FileNotFoundError:
                                     continue
+
+# If one folder is missing a pair, simply look for the file name that shares
+# the same first 14 characters with it
 
