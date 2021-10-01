@@ -1,0 +1,4 @@
+# Enter the full path where you downloaded the program here
+path = '/Users/drleahv/Documents/Joshua/VIS_NOV/'
+# The name of the directory you're going to put the downloaded files in
+trans_dir = 'translations'
