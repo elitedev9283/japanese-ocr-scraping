@@ -2,7 +2,6 @@ import time
 import os
 from variables import *
 
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support.ui import Select
@@ -38,7 +37,7 @@ time.sleep(2)
 
 # Chooses the first page of results by default.
 # The indices for the pages will be [-10 to -3]
-# driver.find_elements_by_tag_name("a")[-6].click() - Pick a page among the pages of search results. 
+driver.find_elements_by_tag_name("a")[-6].click() # Pick a page among the pages of search results. 
 while True:
     # Get the second <ul> element
     document_list = driver.find_elements_by_tag_name('ul')[1]
@@ -48,7 +47,10 @@ while True:
     # Get the window with the search results as the base window
     base_window = driver.current_window_handle
     for item in items:
-        # CLick on the link associated with the document
+        # Check if the document has the default format, skip if it doesn't
+        if len(item.find_elements_by_tag_name('img')) > 0:
+            continue
+        # Click on the link associated with the document
         item.find_element_by_tag_name("a").click()
         for w in driver.window_handles:
         #switch focus to child window
@@ -70,13 +72,13 @@ while True:
         # Switch to the alert button that pops up and accept it
         obj = driver.switch_to.alert
         obj.accept()
-        time.sleep(5)
+        time.sleep(1)
         # Do the same for english translations
         select_object.select_by_value('08')
         download_button = driver.find_elements_by_tag_name("input")[1].click()
         obj = driver.switch_to.alert
         obj.accept()
-        time.sleep(5)
+        time.sleep(1)
         driver.close()
         driver.switch_to.window(base_window)
     # Move to the next page of search results
