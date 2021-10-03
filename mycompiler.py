@@ -43,23 +43,21 @@ while True:
                                         os.rename(path+trans_dir+'/temp',path+trans_dir+'/'+title)
                                     except OSError:
                                         # Move the file in the new folder without the blank space
-                                        rewrite(path+trans_dir+'/'+item,path+trans_dir+'/'+title+'/eng')
-                                rewrite(path+trans_dir+'/'+item,path+trans_dir+'/temp/eng')
+                                        rewrite(path+trans_dir+'/'+item,path+trans_dir+'/'+title+'/english')
+                                rewrite(path+trans_dir+'/'+item,path+trans_dir+'/temp/english')
                             except FileNotFoundError:
                                 continue
                         # Rename the japanese translation to jap and put it into the folder with its partner
                         elif 'ja' in item:
                             if title_found:
                                 try:
-                                    rewrite(path+trans_dir+'/'+item,path+trans_dir+'/'+title+'/jap')
+                                    rewrite(path+trans_dir+'/'+item,path+trans_dir+'/'+title+'/japanese')
                                 except FileNotFoundError:
                                     continue
                             else:
                                 try:
-                                    rewrite(path+trans_dir+'/'+item,path+trans_dir+'/temp/jap')
+                                    rewrite(path+trans_dir+'/'+item,path+trans_dir+'/temp/japanese')
                                 except FileNotFoundError:
                                     continue
 
-# If one folder is missing a pair, simply look for the file name that shares
-# the same first 14 characters with it
 
