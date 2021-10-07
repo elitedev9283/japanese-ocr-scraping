@@ -18,11 +18,14 @@ while True:
             # Check if the title has been found
             title_found = False
             # Get a file and find its pair, put their paths in a list
-            file_id = files[0:14]  
+            file_id = str(files.replace('en','')).replace('ja','')
             for files2 in fil_list:
+                if files == files2:
+                    continue
                 # Find the file's partner
-                id2 = files2[0:14]
+                id2 = str(files2.replace('en','')).replace('ja','')
                 if file_id == id2:
+                    print(files, files2)
                     new_tup = [files,files2]
                     # Create a new folder with the temp as the name  
                     dir = os.path.join(path,trans_dir,'temp')
