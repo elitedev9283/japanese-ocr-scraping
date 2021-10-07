@@ -32,12 +32,23 @@ driver.delete_all_cookies()
 # Login to law site
 driver.get('http://www.japaneselawtranslation.go.jp/law/?re=2')
 # Click on the second menu
-search_1 = driver.find_element_by_xpath("//*[contains(text(), '株式')]").click()
-time.sleep(2)
+search_1 = driver.find_element_by_xpath("//*[contains(text(), '投資')]").click()
+time.sleep(1)
 
+# Open the list of downloaded documents as a string\
+'''
+# Use this if you already have a list_of_documents.txt file
+
+with open('list_of_documents.txt', 'r') as f1:
+    docs = []
+    for doc in f1.readlines():
+        docs.append(doc[:-1])
+'''
+
+downloaded = []
 # Chooses the first page of results by default.
 # The indices for the pages will be [-10 to -3]
-driver.find_elements_by_tag_name("a")[-6].click() # Pick a page among the pages of search results. 
+#driver.find_elements_by_tag_name("a")[-6].click() # Pick a page among the pages of search results. 
 while True:
     # Get the second <ul> element
     document_list = driver.find_elements_by_tag_name('ul')[1]
@@ -50,6 +61,22 @@ while True:
         # Check if the document has the default format, skip if it doesn't
         if len(item.find_elements_by_tag_name('img')) > 0:
             continue
+        # Check if the document has already been downloaded
+        '''
+        # Use this if you already have a list_of_documents.txt file
+        
+        in_list = False
+        title = str(item.find_elements_by_tag_name('a')[0].get_attribute('text'))[28:-10]
+        for d in docs:
+            print(d)
+            title = str(item.find_elements_by_tag_name('a')[0].get_attribute('text'))[28:28+len(d)-1]
+            print(title)
+            if d[:-1] in title:
+                in_list = True
+                break
+        if in_list == True:
+            continue
+        '''
         # Click on the link associated with the document
         item.find_element_by_tag_name("a").click()
         for w in driver.window_handles:
