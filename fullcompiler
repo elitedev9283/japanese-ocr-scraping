@@ -1,0 +1,45 @@
+import os
+import shutil
+from variables import *
+
+# Set to the path where the document folders are located
+docs = path + trans_dir
+
+# Make function to rewrite txt into the full database txt file
+def rewrite(src, dest): # Returns: None
+    with open(src, 'r') as f1:
+        lines = f1.readlines()
+    with open(dest, 'a') as f2:
+        f2.writelines(lines)
+
+# Create the full database txt files called 'english' and 'japanese'
+new_jap = path+'/japanese'
+new_eng = path+'/english'
+
+missing = []
+# Exit/cancel the program once all files have been compiled
+for (root,dirs,fil) in os.walk(docs, topdown=True):
+    for dire in dirs:
+        print(len(dirs))
+        try:
+            # Write the japanese and english translations to their respective databases
+            with open(docs+'/'+dire+'/japanese', 'r') as f1:
+                jap_len = len(f1.readlines())
+            with open(docs+'/'+dire+'/english', 'r') as f2:
+                eng_len = len(f2.readlines())
+            # The files will not be added to the database if the translations have different lengths
+            if jap_len != eng_len:
+                missing.append(dire)
+                continue
+            else:
+                rewrite(docs+'/'+dire+'/japanese',new_jap)
+                rewrite(docs+'/'+dire+'/english',new_eng)
+        except FileNotFoundError:
+            missing.append(dire)
+            continue
+
+# List the files that have translations of different lengths
+print(missing)
+print(len(missing))
+
+
