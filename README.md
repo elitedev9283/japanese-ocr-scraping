@@ -16,3 +16,5 @@ Since Visual Novel OCR needs a wide array of data sources to accurately translat
 * Run the downloader file, a translations directory will be created in the same directory your programs are in. This is where the downloaded files will be uploaded.
 * Run the compiler file, the downloaded files will be paired into their english and japanese translations and copied inside folders with the titles as their names. Stop running the program once all the folders have been created. If one file is missing its pair, simply look for the original file and find the file that shares the same 14 characters it has.
 * If you want to list all the document-translation pairs that have been successfully compiled, run the lister file. It will create a txt file and list the titles of all the compiled documents.
+* If you want to compile every english and japanese translation into a single database, run the fullcompiler file. It will create two txt files for the japanese and english translations.
+
